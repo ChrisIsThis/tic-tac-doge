@@ -52,13 +52,20 @@ $("document").ready(function(){
 
   $(".square").click(function(){
     // if not already chosen
-    moveCount++
+
     if(whoseMove()=== human && available.indexOf(getNumber(this.id)) != -1){
+      moveCount++
       $(this).html(human.team)
       updateSets(getNumber(this.id));
+      console.log("After human, available: " + available);
+      console.log("After human, unavailable: " + unavailable);
       gameOverCheck();
-      computerMove();
-      gameOverCheck();
+      if(human.team != false){
+        computerMove();
+        console.log("After computer, available: " + available);
+        console.log("After computer, unavailable: " + unavailable);
+        gameOverCheck();
+      }
     }
   })
 
@@ -94,7 +101,8 @@ $("document").ready(function(){
       resetGame()
 
     } else if (winner === false && available.length === 0){
-      $("#team").html("<p>Nobody wins! Play again by picking a new team.s</p>");
+      $("#team").html("<p>Nobody wins! Play again by picking a new team.</p>");
+      console.log("Game is over now, nothing should happen");
       resetGame()
     }
   }
@@ -338,14 +346,18 @@ $("document").ready(function(){
     }
     //whoseMove().all.push(num);
     //cuts out number from available array
-    available.splice(available.indexOf(num),1);
     unavailable.push(num);
+    available.splice(available.indexOf(num),1);
+
 
   }
 
 
 }) //doc ready function end
 
+/* --------- Bug! ------------- */
+// when there is a draw, a square will disappear and then it will lock, seems to be from a corner always
+  // the last chosen square seems to not get pulled from the available array and put in unavailable
 
 /* --------- Feature addition ------------ */
 // Fix top UI (need to sketch design)
