@@ -49,6 +49,13 @@ $("document").ready(function(){
 
     }
   })
+  $("#reset").click(function(){
+    resetGame();
+    for(var i = 1; i < 10; i++) {
+      $(getID(i)).html("");
+    }
+    $("#team").html("<p id='message'>Plz pick iX or Oh on right to make play</p>")
+  })
 
   $(".square").click(function(){
     // if not already chosen
@@ -72,37 +79,53 @@ $("document").ready(function(){
 
   // set and display the team + clear the board //
   function setTeam(humanTeam, compTeam){
-    $("#team").html("<p>You are playing as " + humanTeam + "s</p>");
-    $("#team").append("<p>Computer is playing as " + compTeam + "s</p>");
+    $("#team").html("<p id='message'>You r play as such " + humanTeam + "s. Computer iz play as many " + compTeam + "s</p>");
     human.team = humanTeam;
     computer.team = compTeam;
     //loop through all of the cells and make em blank
     for(var i = 1; i < 10; i++) {
       $(getID(i)).html("");
     }
+    $("#middle-doge").html("<img id='middle-doge-img' src='https://i.imgur.com/BRMfRGj.jpg'>");
   }
 
 
   function gameOverCheck(){
     var winner = false;
+    var winningSet = [];
     // check if there's a winner (order of ifs doesn't matter because return
     // after every move)
     for(var x = 0; x < completeSet.length; x++){
       if(human[completeSet[x][0]].length === 3){
         winner = human;
+        winningSet = human[completeSet[x][0]];
+        console.log(winningSet)
       }
       if(computer[completeSet[x][0]].length === 3){
         winner = computer;
+        winningSet = computer[completeSet[x][0]];
       }
     }
     // if there's a winner, let em know
     if (winner != false){
-      $("#team").html("<p>" + winner.team + " wins! Play again by picking a new team!</p>");
-      resetGame()
-
+      for (var i = 0; i < 4; i++){
+        $(getID(winningSet[i])).html("<img id='doge-win-img' src='https://i.imgur.com/XC0tiPv.png'>")
+      }
+      if (winner === human){
+        $("#team").html("<p id='message'>Amaze! Such winz! Pick side to play again!</p>");
+        $("#middle-doge").html("<img id='middle-doge-img' src='https://i.imgur.com/92SFTKU.jpg'>");
+        resetGame()
+      } else {
+        $("#team").html("<p id='message'>Oh many sry! U lose. Pick side to play again!</p>");
+        $("#middle-doge").html("<img id='middle-doge-img' src='https://i.imgur.com/EeCkCRu.jpg'>");
+        resetGame()
+      }
     } else if (winner === false && available.length === 0){
-      $("#team").html("<p>Nobody wins! Play again by picking a new team.</p>");
-      console.log("Game is over now, nothing should happen");
+      $("#team").html("<p id='message'>No lose?! No Win?! Such cat! Pick a new team.</p>");
+      for(var i = 1; i < 10; i++) {
+        $(getID(i)).html("<img id='doge-win-img' src='https://i.imgur.com/yXWuHR8.jpg'>");
+        $("#middle-doge").html("<img id='middle-doge-img' src='https://i.imgur.com/yXWuHR8.jpg'>");
+      }
       resetGame()
     }
   }
@@ -355,14 +378,10 @@ $("document").ready(function(){
 
 }) //doc ready function end
 
-/* --------- Bug! ------------- */
-// when there is a draw, a square will disappear and then it will lock, seems to be from a corner always
-  // the last chosen square seems to not get pulled from the available array and put in unavailable
 
 /* --------- Feature addition ------------ */
 // Fix top UI (need to sketch design)
   // make X's and O's larger
   // Top UI is locked
-// Lock divs
 // Highlight winning cells (and clear highlights)
 // Doge-ify (winning cells have doge images? Cats and doge? Doge wording)

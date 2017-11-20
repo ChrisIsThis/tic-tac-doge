@@ -7,18 +7,31 @@
   <link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet'>
 </head>
 <body>
-  <div id="main" class="col-centered row">
+  <div id="main" class="col-centered">
     <div id="title" class="col-centered">
       <h1 class="text-center">Tic Tac Doge</h1>
     </div>
-    <div id="oh" class="row">
-      <p>O</p>
+    <div id="top-info" class="row col-centered">
+      <!---message goes in div below --->
+      <div id="team">
+        <p id="message">Plz pick iX or Oh on right to make play</p>
+      </div>
+      <div id="middle-doge">
+        <img id="middle-doge-img" src="https://i.imgur.com/BRMfRGj.jpg">
+      </div>
+      <div id="choose-team" class="col-centered">
+        <div id="team-letter-div" class="col-centered">
+          <p class="text-center">
+            <span id="ex" class="">X</span>
+            <span id="oh" class="">O</span>
+          </p>
+        </div>
+        <div id="restart-div">
+          <p id="reset" class="text-center">Reset</p>
+        </div>
+      </div>
     </div>
-    <div id="ex" class="row">
-      <p>X</p>
-    </div>
-    <div id="team">
-    </div>
+
       <table class="col-centered">
         <tr>
           <td id="one" class="square text-center"></td>
@@ -36,6 +49,9 @@
           <td id="nine" class="square text-center"></td>
         </tr>
       </table>
+    </div
+    <div class="col-centered">
+      <p id="bottom-text" class="text-center">Many coding by <a href="https://github.com/ChrisIsThis/">Chris Swimmer, aka Raïe</a>. Amaze! Wow!</p>
     </div>
 </div>
 
